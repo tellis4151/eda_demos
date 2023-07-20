@@ -11,9 +11,9 @@
     - name: Application is up
       condition: event.url_check.status == "up"
       action:
-      run_job_template:
-        name:  System Up
-        organization: Default
+        run_job_template:
+          name:  System Up
+          organization: Default
 
     - name: Application is Down
       condition: event.url_check.status == "down"
