@@ -3,6 +3,7 @@
   hosts: Web
   sources:
     - ansible.eda.url_check:
+        verify_ssl: false
         urls:
           - http://107.23.128.189
 	delay: 10
@@ -21,4 +22,3 @@
         run_job_template:
           name: Fix Web
           organization: Default 
-
