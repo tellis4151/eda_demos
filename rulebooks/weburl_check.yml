@@ -1,5 +1,5 @@
 ---
-- name: Listenfor Events for Web Application
+- name: Listen for Events for Web Application
   hosts: Web
   sources:
     - ansible.eda.url_check:
@@ -12,7 +12,7 @@
       condition: event.url_check.status == "up"
       action:
         run_job_template:
-          name:  System Up
+          name: System Up
           organization: Default
 
     - name: Application is Down
