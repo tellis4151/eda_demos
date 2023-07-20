@@ -2,7 +2,7 @@
 - name: Listenfor Events for Web Application
   hosts: all
   sources:
-    - ansible.eda.urlcheck
+    - ansible.eda.urlcheck:
         urls:
           - http://107.23.128.189
 
