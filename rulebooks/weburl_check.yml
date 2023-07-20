@@ -1,7 +1,6 @@
 ---
 - name: Listenfor Events for Web Application
-  hosts: Web
-  
+  hosts: all
   sources:
     - ansible.eda.urlcheck
         urls:

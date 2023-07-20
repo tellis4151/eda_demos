@@ -1,7 +1,6 @@
 ---
 - name: Hello World Rulebook
   hosts: all
-  
   sources:
     - ansible.eda.webhook:
         host: 0.0.0.0
