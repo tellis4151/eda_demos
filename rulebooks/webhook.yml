@@ -1,5 +1,5 @@
 ---
-- name: Capture Git Events
+- name: Hello World Rulebook
   hosts: all
   
   sources:
