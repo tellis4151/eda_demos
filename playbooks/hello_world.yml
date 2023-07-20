@@ -1,0 +1,9 @@
+---
+- name: Hello World
+  hosts: all
+  gather_facts: false
+
+  tasks:
+  - name: Say Hello World
+    debug:
+      msg: "Hello World"

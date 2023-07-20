@@ -1,0 +1,9 @@
+---
+- name: Site Down
+  hosts: Web
+  gather_facts: false
+
+  tasks:
+  - name: Site is Up 
+    debug:
+      msg: "Application is Up"

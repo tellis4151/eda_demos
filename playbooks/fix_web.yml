@@ -1,0 +1,17 @@
+---
+- name: Site Down
+  hosts: Web
+  gather_facts: false
+  become: true
+
+  tasks:
+  - name: Notiying Site is Down 
+    debug:
+      msg: "Application is down"
+
+  - name: Restart httpd
+    service:
+      name: httpd
+      state: started
+    
+  
