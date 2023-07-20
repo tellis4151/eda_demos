@@ -13,13 +13,13 @@
       condition: event.url_check.status == "up"
       action:
       run_job_template:
-        name:  system_up.yml
+        name:  System Up
         organization: Default
 
     - name: Application is Down
       condition: event.url_check.status == "down"
       action:
         run_job_template:
-          name: fix_web.yml
+          name: Fix Web
           organization: Default 
 
