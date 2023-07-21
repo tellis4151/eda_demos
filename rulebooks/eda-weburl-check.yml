@@ -3,7 +3,8 @@
   hosts: localhost
   sources:
     - ansible.eda.url_check:
-        verify_ssl: false
+#        verify_ssl: false
+        delay: 10
         urls:
           - http://107.23.128.189
   
