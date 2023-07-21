@@ -6,8 +6,7 @@
         verify_ssl: false
         urls:
           - http://107.23.128.189
-	delay: 10
-
+  
   rules:
     - name: Application is up
       condition: event.url_check.status == "up"
