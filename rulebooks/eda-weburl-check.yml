@@ -4,7 +4,7 @@
   sources:
     - ansible.eda.url_check:
 #        verify_ssl: false
-        delay: 10
+        delay: 30
         urls:
           - http://107.23.128.189
   
