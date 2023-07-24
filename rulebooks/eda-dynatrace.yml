@@ -4,7 +4,7 @@
   sources:
     - dynatrace.eda.dt_esa_api:
         dt_api_host: https://pjt81419.live.dynatrace.com
-        dt_api_token: dt0c01.U6FS5B5V6UTD6NVJ43H43G56.Y4JAJAIPFRTW26L5AV4TOGLKP2MLJ6WCNLB24NVEWCPWLDKVG2KJH5XUNBDTIRMT
+	dt_api_token: "{{ token }}"
         delay: 30
   
   rules:
