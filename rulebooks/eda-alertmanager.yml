@@ -1,22 +1,21 @@
 ---
 - name: EDA | AlertManager | Listen for events from AlertManager
-  hosts: localhost
+  hosts: all
   sources:
     - name: Listen for Alerts
       ansible.eda.alertmanager:
         host: 0.0.0.0
         port: 5001
-
   rules:
     - name: EDA AlertManager Run playbook to handle firing alert
-      condition: event.payload.status == "firing"
+      condition: event.alert.status == "firing"
       actions:
         run_job_template:
           name: Fix Web
           organization: Default
 
     - name: EDA AlertManager Run playbook to handle resolved alert
-      condition: event.payload.status == "resolved"
+      condition: event.alert.status == "resolved"
       actions:
         run_job_template:
           name: System Up
