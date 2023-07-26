@@ -1,5 +1,5 @@
 ---
-- name: Hello World Rulebook
+- name: Dynatrace Rulebook
   hosts: all
   sources:
     - ansible.eda.webhook:
@@ -7,10 +7,10 @@
         port: 5050
 
   rules:
-    - name: Run job restart process
-      condition: event.alert.ProblemTitle == "Apache Service Down"
+    - name: Remediate Down Web Application
+      condition: event.alert.ProblemTitle == "Http monitor global outage"
       action:
         run_job_template:
-          name: Fix Web
+          name: Remediate Test Application
           organization: Default
 
