@@ -2,7 +2,7 @@
 - name: Dynatrace Rulebook
   hosts: all
   sources:
-    - ansible.eda.webhook:
+    - ansible.eda.alertmanager:
         host: 0.0.0.0
         port: 5050
 
