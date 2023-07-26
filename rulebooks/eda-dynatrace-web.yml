@@ -2,13 +2,13 @@
 - name: Dynatrace Rulebook
   hosts: localhost
   sources:
-    - ansible.eda.alertmanager:
+    - ansible.eda.webhook:
         host: 0.0.0.0
         port: 5050
 
   rules:
     - name: Remediate Down Web Application
-      condition: event.alert.ProblemTitle == "Http monitor global outage"
+      condition: event.payload.ProblemTitle == "Http monitor global outage"
       action:
         run_job_template:
           name: Remediate Test Application
