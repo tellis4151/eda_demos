@@ -7,7 +7,7 @@
         port: 5000
 
   rules:
-    - name: Run job run_job_template
+    - name: Process message event
       condition: event.payload.message == "Incoming message"
       action:
         run_job_template:
