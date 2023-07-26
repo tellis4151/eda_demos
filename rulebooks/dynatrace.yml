@@ -3,8 +3,8 @@
   hosts: all
   sources:
     - dynatrace.eda.dt_esa_api:
-        dt_api_host: https://pjt81419.live.dynatrace.com/
-        dt_api_token: "{{ token }}"
+        dt_host: https://pjt81419.live.dynatrace.com/
+        dt_token: "{{ token }}"
         delay: 30
 
   rules:
