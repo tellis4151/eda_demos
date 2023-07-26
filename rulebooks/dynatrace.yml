@@ -1,0 +1,17 @@
+---
+- name: Listen for events from Dynatrace
+  hosts: all
+  sources:
+    - dynatrace.eda.dt_esa_api:
+        dt_api_host: https://pjt81419.live.dynatrace.com/
+        dt_api_token: "{{ token }}"
+        delay: 30
+
+  rules:
+    - name: Web Applicaton Availability
+      condition: event.payload.ProblemTitle contains "Http monitor global outage"
+      action:
+        run_job_template:
+          name: Remediate Test Application
+          organization: Default
+    
