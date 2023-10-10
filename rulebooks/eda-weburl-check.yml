@@ -6,7 +6,7 @@
 #        verify_ssl: false
         delay: 60
         urls:
-          - http://54.204.77.52
+          - http://54.157.0.31
   
   rules:
     - name: Application is up
