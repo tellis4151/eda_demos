@@ -1,6 +1,6 @@
 ---
 - name: Site Down
-  hosts: Web
+  hosts: webservers
   gather_facts: false
 
   tasks:
