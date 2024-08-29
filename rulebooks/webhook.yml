@@ -5,7 +5,7 @@
     - ansible.eda.webhook:
         host: 127.0.0.1
         port: 5000
-        ssl_verify: false
+        ssl_verify: no
 
   rules:
     - name: Process message event
