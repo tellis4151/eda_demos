@@ -1,0 +1,19 @@
+---
+- name: Receive Message Events On Webhook
+  hosts: all
+  sources:
+    - ansible.eda.webhook:
+        host: 127.0.0.1
+        port: 5000
+        ssl_verify: no
+
+  rules:
+    - name: Process message event
+      condition: event.payload.message == "Incoming message"
+      action:
+        set_fact:
+          ruleset: Test Fact
+          fact:
+            data: "{{ event.payload.message }}"
+
+  
