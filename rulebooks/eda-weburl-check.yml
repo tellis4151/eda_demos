@@ -3,10 +3,10 @@
   hosts: localhost
   sources:
     - ansible.eda.url_check:
-#        verify_ssl: false
+        verify_ssl: false
         delay: 60
         urls:
-          - http://44.202.80.118
+          - http://54.210.243.210
   
   rules:
     - name: Application is up
@@ -16,9 +16,9 @@
           name: System Up
           organization: Default
 
-    - name: Application is Down
-      condition: event.url_check.status == "down"
-      action:
-        run_job_template:
-          name: Fix Web
-          organization: Default 
+#    - name: Application is Down
+#      condition: event.url_check.status == "down"
+#      action:
+#        run_job_template:
+#          name: Fix Web
+#          organization: Default 
