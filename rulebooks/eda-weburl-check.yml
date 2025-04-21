@@ -6,19 +6,12 @@
         verify_ssl: false
         delay: 60
         urls:
-          - http://54.210.243.210
+          - http://3.88.131.86
   
   rules:
-    - name: Application is up
-      condition: event.url_check.status == "up"
+    - name: Application is Down
+      condition: event.url_check.status == "down"
       action:
         run_job_template:
-          name: System Up
-          organization: Default
-
-#    - name: Application is Down
-#      condition: event.url_check.status == "down"
-#      action:
-#        run_job_template:
-#          name: Fix Web
-#          organization: Default 
+          name: Fix Cloud Application
+          organization: Default 
