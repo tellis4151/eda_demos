@@ -1,0 +1,26 @@
+---
+- name: Application Not Responding
+  hosts: edge
+  gather_facts: false
+  become: true
+
+  tasks:
+  - name: Notiying Application is Down 
+    debug:
+      msg: "Application is down and not responding"
+
+  - name: Restart httpd
+    service:
+      name: httpd
+      state: stopped
+
+  - name: Copy configuration files
+    copy:
+      src: /var/www/html/hello-world/index.html
+      dest: /var/www/html/index.html
+      mode: '0644'
+
+  - name: Start apache
+    service:
+      name: httpd
+      state: started
