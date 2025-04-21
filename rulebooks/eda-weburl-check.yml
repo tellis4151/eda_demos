@@ -5,6 +5,7 @@
     - ansible.eda.url_check:
         verify_ssl: false
         delay: 60
+        verify_ssl: false
         urls:
           - http://3.88.131.86
   
