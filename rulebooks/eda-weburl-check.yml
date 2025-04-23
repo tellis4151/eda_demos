@@ -7,7 +7,7 @@
         delay: 60
         verify_ssl: false
         urls:
-          - http://44.203.126.203
+          - http://44.202.13.151
   
   rules:
     - name: Application is Down
