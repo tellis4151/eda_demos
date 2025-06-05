@@ -3,7 +3,7 @@
   hosts: localhost
   sources:
     - ansible.eda.file_watch:
-        path: /home/ec2-user/papa_johns 
+        path: "/home/ec2-user/papa_johns" 
         recursive: true
 
   rules:
