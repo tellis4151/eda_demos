@@ -1,6 +1,6 @@
 ---
-- name: Check if the nginx config file is modified 
-  hosts: localhost
+- name: Order Processing
+  hosts: all
   sources:
     - ansible.eda.file_watch:
         path: "/home/ec2-user/papa_johns" 
