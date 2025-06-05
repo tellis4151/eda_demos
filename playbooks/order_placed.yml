@@ -1,0 +1,9 @@
+---
+- name: Pizza Order is Placed
+  hosts: localhost
+  gather_facts: false
+
+  tasks:
+  - name: New order received
+    debug:
+      msg: "Order in progress"
