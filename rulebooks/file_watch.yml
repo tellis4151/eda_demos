@@ -1,15 +1,14 @@
 ---
 - name: Check if the nginx config file is modified 
-  hosts: edge
+  hosts: localhost
   sources:
-    - name: file_watch
-      ansible.eda.file_watch:
-        path: /var/www/html/index.html
+    - ansible.eda.file_watch:
+        path: /home/ec2-user/papa_johns 
         recursive: true
 
   rules:
-    - name: Run the action if the /var/www/html/index.html is modified 
-      condition: event.change == "deleted"
+    - name: Trigger job template on file creation 
+      condition: event.change == "created"
       action:
         run_job_template:
-          name: fix_cloud_app.yml
+          name: order_placed.yml
