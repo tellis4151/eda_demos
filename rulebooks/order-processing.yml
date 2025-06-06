@@ -1,0 +1,18 @@
+---
+- name: Listening for events 
+  hosts: localhost
+  sources:
+    - ansible.eda.url_check:
+        verify_ssl: false
+        delay: 60
+        verify_ssl: false
+        urls:
+          - http://44.204.56.53
+  
+  rules:
+    - name: Application is Down
+      condition: event.url_check.status == "up"
+      action:
+        run_job_template:
+          name: Pizza Order Placed
+          organization: Default 
