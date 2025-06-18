@@ -1,5 +1,5 @@
 ---
-- name: Listening for events 
+- name: Listening for events for Pizza Order System
   hosts: localhost
   sources:
     - ansible.eda.url_check:
@@ -10,9 +10,16 @@
           - http://3.92.50.168
   
   rules:
-    - name: Application is Down
+    - name: Order system is Running
       condition: event.url_check.status == "up"
       action:
         run_job_template:
           name: Pizza Order Placed
           organization: Default 
+
+    - name: Order system is Down
+      condition: event.url_check.status == "down"
+      action:
+        run_workflow_template:
+          name: Fix Order Processing
+          organization: Default  
