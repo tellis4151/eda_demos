@@ -7,7 +7,7 @@
         delay: 60
         verify_ssl: false
         urls:
-          - http://3.92.50.168
+          - http://52.90.75.98
   
   rules:
     - name: Order system is Running
