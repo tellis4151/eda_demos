@@ -4,7 +4,7 @@
   sources:
     - ansible.eda.webhook:
         port: 5050
-        host: 54.167.203.238
+        host: 0.0.0.0
   
   rules:
     - name: Order system is Down
