@@ -8,8 +8,8 @@
   
   rules:
     - name: Order system is Down
-      condition: event.payload.ProblemTitle == "Http monitor global outage"
+      condition: event.payload.issue.type == "incident"
       action:
         run_workflow_template:
           name: Fix Order Processing
-          organization: Default  
+          organization: Default
