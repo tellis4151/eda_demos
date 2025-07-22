@@ -8,7 +8,8 @@
   
   rules:
     - name: Order system is Down
-      condition: event.payload.issue.type == "incident" and event.payload.issue.state == "OPEN"
+      condition: event.payload.issue.state == "OPEN" and event.payload.customPayloads.alert_message == "pos is down"
+      #condition: event.payload.issue.type == "incident" and event.payload.issue.state == "OPEN"
       action:
         run_workflow_template:
           name: Fix Order Processing
