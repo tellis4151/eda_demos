@@ -8,8 +8,8 @@
   
   rules:
     - name: Order system is Down
-      condition: event.payload.issue.entity == "Application" and event.payload.issue.type == "incident" and event.payload.issue.text == "Too many calls with HTTP status code 4XX"
-      #condition: event.payload.issue.state == "OPEN" and event.payload.issue.type == "incident" and event.payload.issue.fqdn == "webserver-demo"
+#      condition: event.payload.issue.entity == "Application" and event.payload.issue.type == "incident" and event.payload.issue.text == "Too many calls with HTTP status code 4XX"
+      condition: event.payload.issue.state == "OPEN" and event.payload.issue.type == "incident" and event.payload.issue.fqdn == "webserver-demo"
       #condition: event.payload.issue.type == "incident" and event.payload.issue.state == "OPEN"
       action:
         run_workflow_template:
