@@ -1,0 +1,15 @@
+---
+- name: Listening for events for Pizza Order System
+  hosts: localhost
+  sources:
+    - ansible.eda.webhook:
+        port: 5050
+        host: 0.0.0.0
+  
+  rules:
+    - name: Order system is Down
+      condition: event.payload.issue.state == "OPEN" and event.payload.issue.type == "incident" and event.payload.text == "Erroneous call rate is higher than normal"
+      action:
+        run_workflow_template:
+          name: Fix RH POS App
+          organization: Default
