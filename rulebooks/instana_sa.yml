@@ -8,7 +8,7 @@
   
   rules:
     - name: POS Processing Orders
-      condition: event.payload.issue.state == "OPEN" and event.payload.issue.type == "incident" and event.payload.text == "Erroneous call rate is higher than normal"
+      condition: event.payload.issue.state == "OPEN" and event.payload.issue.type == "incident" and event.payload.issue.text == "Erroneous call rate is higher than normal"
       action:
         run_workflow_template:
           name: POS Error
