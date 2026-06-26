@@ -33,7 +33,7 @@
 
     - name: Query the local Nginx endpoint to verify functionality
       ansible.builtin.uri:
-        url: "http://localhost:80/"
+        url: "http://{{ ansible_facts['default_ipv4']['address'] }}:80/"
         method: GET
         return_content: true
       register: nginx_response
