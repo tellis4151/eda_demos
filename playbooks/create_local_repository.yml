@@ -1,0 +1,56 @@
+---
+- name: Create and Configure Local DNF Repository
+  hosts: test_servers
+  become: true
+
+  vars:
+    repo_directory: "/opt/dev-rpms-repo"
+    repo_id: "highside_repo"
+    repo_description: "Local Custom RPM Repository"
+    
+    rpm_packages_to_upload:
+      - "/opt/dev-rpms/ansible-sign-0.1.5-1.el9ap.noarch.rpm"
+      - "/opt/dev-rpms/ansible-lint-26.4.0-1.el9ap.noarch.rpm"
+      - "/opt/dev-rpms/ansible-dev-tools-26.4.6-1.el9ap.noarch.rpm"
+
+  tasks:
+    - name: Ensure createrepo_c is installed (required to build repo metadata)
+      ansible.builtin.dnf:
+        name: createrepo_c
+        state: present
+
+    - name: Create the repository directory structure
+      ansible.builtin.file:
+        path: "{{ repo_directory }}"
+        state: directory
+        mode: '0755'
+        owner: root
+        group: root
+
+    - name: Copy listed RPMs from control node to the remote server
+      ansible.builtin.copy:
+        src: "{{ item }}"
+        dest: "{{ repo_directory }}/"
+        mode: '0644'
+      loop: "{{ rpm_packages_to_upload }}"
+      register: upload_result
+
+    - name: Initialize or update the repository metadata
+      ansible.builtin.command:
+        cmd: "createrepo_c {{ repo_directory }}"
+      when: upload_result.changed
+      changed_when: true
+
+    - name: Create the DNF .repo configuration file in /etc/yum.repos.d/
+      ansible.builtin.yum_repository:
+        name: "{{ repo_id }}"
+        description: "{{ repo_description }}"
+        baseurl: "file://{{ repo_directory }}"
+        enabled: true
+        gpgcheck: false # Set to true if your listed RPMs are signed
+        state: present
+
+    - name: Clear DNF cache to force initialization of the new repository
+      ansible.builtin.command:
+        cmd: dnf clean all
+      changed_when: true
