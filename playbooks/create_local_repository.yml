@@ -32,6 +32,7 @@
         src: "{{ item }}"
         dest: "{{ repo_directory }}/"
         mode: '0644'
+        remote_src: true
       loop: "{{ rpm_packages_to_upload }}"
       register: upload_result
 
