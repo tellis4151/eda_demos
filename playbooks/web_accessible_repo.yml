@@ -12,7 +12,7 @@
         content: |
           server {
               listen 80;
-              root /opt/local_rpm_repo;
+              root /opt/dev-rpms-repo;
               location / {
                   autoindex on; # Allows browsing the directory structure
               }
@@ -26,7 +26,7 @@
         state: restarted
         enabled: true
 
-    - name: Wait for Nginx port 8080 to become available
+    - name: Wait for Nginx port 80 to become available
       ansible.builtin.wait_for:
         port: 80
         timeout: 10
@@ -42,5 +42,5 @@
     - name: Print success verification details
       ansible.builtin.debug:
         msg: 
-          - "SUCCESS: Nginx is responding on port 8080 with status 200!"
+          - "SUCCESS: Nginx is responding on port 80 with status 200!"
           - "The repository directory listing (autoindex) is functioning correctly."
