@@ -8,7 +8,7 @@
   
   rules:
     - name: Listening for Events from DataGuard Transfer
-      condition: event.payload.message contains "RPM signature valid"
+      condition: 'event.payload.message matches "*.status: RPM signature valid.*"'
       action:
         run_job_template:
           name: Demo Job Template
