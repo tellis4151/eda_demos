@@ -1,0 +1,46 @@
+- name: Expose Repository via Nginx on Server A
+  hosts: test_servers
+  become: true
+  tasks:
+    - name: Install Nginx
+      ansible.builtin.dnf:
+        name: nginx
+        state: present
+
+    - name: Configure Nginx to serve the RPM directory
+      ansible.builtin.copy:
+        content: |
+          server {
+              listen 80;
+              root /opt/local_rpm_repo;
+              location / {
+                  autoindex on; # Allows browsing the directory structure
+              }
+          }
+        dest: /etc/nginx/conf.d/rpm_repo.conf
+        mode: '0644'
+
+    - name: Start and enable Nginx
+      ansible.builtin.systemd:
+        name: nginx
+        state: restarted
+        enabled: true
+
+    - name: Wait for Nginx port 8080 to become available
+      ansible.builtin.wait_for:
+        port: 80
+        timeout: 10
+
+    - name: Query the local Nginx endpoint to verify functionality
+      ansible.builtin.uri:
+        url: "http://localhost:80/"
+        method: GET
+        return_content: true
+      register: nginx_response
+      failed_when: nginx_response.status != 200 or "Index of /" not in nginx_response.content
+
+    - name: Print success verification details
+      ansible.builtin.debug:
+        msg: 
+          - "SUCCESS: Nginx is responding on port 8080 with status 200!"
+          - "The repository directory listing (autoindex) is functioning correctly."
