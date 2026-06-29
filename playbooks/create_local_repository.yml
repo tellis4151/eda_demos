@@ -4,9 +4,9 @@
   become: true
 
   vars:
-    repo_directory: "/opt/dev-rpms-repo"
+    repo_directory: "/opt/rpms-repo"
     repo_id: "highside_repo"
-    repo_description: "Local Custom RPM Repository"
+    repo_description: "Highside RPM Repository"
     
     rpm_packages_to_upload:
       - "/opt/dev-rpms/ansible-sign-0.1.5-1.el9ap.noarch.rpm"
