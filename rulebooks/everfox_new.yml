@@ -10,6 +10,6 @@
     - name: Listening for Events from DataGuard Transfer
       condition: event.payload.message is search("RPM signature valid") 
       action:
-        run_job_template:
-          name: Create RPM Repository
+        run_workflow_template:
+          name: Everfox Demo
           organization: Default
