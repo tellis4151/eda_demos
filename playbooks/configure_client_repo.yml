@@ -17,12 +17,12 @@
         gpgcheck: false
         state: present
 
-    - name: Clear DNF cache and build new metadata cache
+    - name: Clear DNF cache 
       ansible.builtin.command:
         cmd: dnf clean all 
       changed_when: true
 
-    - name: Clear DNF cache and build new metadata cache
+    - name: Build new metadata cache
       ansible.builtin.command:
         cmd: dnf makecache
       changed_when: true
