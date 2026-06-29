@@ -1,6 +1,6 @@
 ---
 - name: Create and Configure Local DNF Repository
-  hosts: test_servers
+  hosts: data_repository
   become: true
 
   vars:

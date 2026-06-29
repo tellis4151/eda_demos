@@ -1,5 +1,5 @@
 - name: Expose Repository via Nginx on Server A
-  hosts: test_servers
+  hosts: data_repository
   become: true
   tasks:
     - name: Install Nginx
