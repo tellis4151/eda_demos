@@ -1,0 +1,33 @@
+---
+- name: Configure Client to Use Remote RPM Repository
+  hosts: client_servers
+  become: true
+  vars:
+    repo_server_port: "80"
+    repo_id: "Data_Guard_Repository"
+    repo_description: "Data Guard RPM Repository"
+
+  tasks:
+    - name: Add the remote repository configuration to DNF
+      ansible.builtin.yum_repository:
+        name: "{{ repo_id }}"
+        description: "{{ repo_description }}"
+        baseurl: "http://{{ repo_server_ip }}:{{ repo_server_port }}/"
+        enabled: true
+        gpgcheck: false
+        state: present
+
+    - name: Clear DNF cache and build new metadata cache
+      ansible.builtin.command:
+        cmd: dnf clean all && dnf makecache
+      changed_when: true
+
+    - name: Verify the repository is visible
+      ansible.builtin.command:
+        cmd: dnf repolist
+      register: repo_list
+      changed_when: false
+
+    - name: Show available repositories to confirm
+      ansible.builtin.debug:
+        var: repo_list.stdout_lines
