@@ -1,0 +1,24 @@
+---
+- name: Listening for events from ServiceNow
+  hosts: localhost
+
+  sources:
+    - servicenow.itsm.records:
+        table: change_request
+        interval: 5
+        updated_since: "2026-07-2012:00:00"
+        timezone: America/New_York
+        query: "state=-5^short_description=New EC2 Cloud Instance"
+
+  rules:
+    - name: Trigger a workflow when a change request is created
+      condition: event.record.state == "New" and event.record.short_description == "New EC2 Cloud Instance"
+      action:
+        run_workflow_template:
+          name: Provision New RHEL EC2 Instance
+          organization: Default
+          job_args:
+            extra_vars:
+              change_sys_id: "{{ event.record.sys_id }}"
+              change_number: "{{ event.record.number }}"
+              requested_by: "{{ event.record.requested_by }}"
