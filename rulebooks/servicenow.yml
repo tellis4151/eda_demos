@@ -6,7 +6,7 @@
     - servicenow.itsm.records:
         table: change_request
         interval: 5
-        updated_since: "2026-07-2012:00:00"
+        updated_since: "2026-07-20 12:00:00"
         timezone: America/New_York
         sysparm_query: "state=-5^short_description=New EC2 Cloud Instance"
 
