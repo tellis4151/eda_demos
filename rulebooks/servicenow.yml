@@ -5,19 +5,19 @@
   sources:
     - servicenow.itsm.records:
         table: change_request
-        interval: 10
+        interval: 15
         remote_servicenow_timezone: "US/Eastern"
         sysparm_query: "sys_created_on>=2026-07-20 12:00:00^state=-5^short_description=New EC2 Cloud Instance"
 
   rules:
     - name: Trigger a workflow when a change request is created
-      condition: event.record.state == "New" and event.record.short_description == "New EC2 Cloud Instance"
+      condition: event.state == "-5" and event.short_description == "New EC2 Cloud Instance"
       action:
         run_workflow_template:
           name: Provision New RHEL EC2 Instance
           organization: Default
           job_args:
             extra_vars:
-              change_sys_id: "{{ event.record.sys_id }}"
-              change_number: "{{ event.record.number }}"
-              requested_by: "{{ event.record.requested_by }}"
+              change_sys_id: "{{ event.sys_id }}"
+              change_number: "{{ event.number }}"
+              requested_by: "{{ event.sys_created_by }}"
