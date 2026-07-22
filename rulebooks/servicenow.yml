@@ -7,7 +7,7 @@
         table: change_request
         interval: 5
         updated_since: "2026-07-20 12:00:00"
-        remote_servicenow_timezone: "America/New_York"
+        remote_servicenow_timezone: "UTC"
         sysparm_query: "state=-5^short_description=New EC2 Cloud Instance"
 
   rules:
