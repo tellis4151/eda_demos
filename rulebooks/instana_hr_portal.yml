@@ -1,0 +1,15 @@
+---
+- name: Listening for events from Instana Monitoring HR Portal
+  hosts: localhost
+  sources:
+    - ansible.eda.webhook:
+        port: 5050
+        host: 0.0.0.0
+  
+  rules:
+    - name: HR Portal Reporting Down
+      condition: event.payload.issue.state == "OPEN" and event.payload.issue.type == "incident" and event.payload.issue.text == "Too many calls with HTTP status code 400 - 599"
+      action:
+        run_workflow_template:
+          name: HR Portal Down
+          organization: Default
