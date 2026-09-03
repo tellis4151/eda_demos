@@ -1,0 +1,9 @@
+---
+- name: Check Status of Order Processing System
+  hosts: localhost
+  gather_facts: false
+
+  tasks:
+  - name: Poll order system
+    ansible.builtin.uri:
+      url: http://44.203.157.242

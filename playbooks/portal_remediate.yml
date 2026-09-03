@@ -1,0 +1,26 @@
+---
+- name: HR Portal Remediation
+  hosts: webservers
+  gather_facts: false
+  become: true
+
+  tasks:
+  - name: HR Portal Remediation
+    debug:
+      msg: "HR Portal System is Down"
+
+  - name: Reconfigure node js app
+    ansible.builtin.shell:
+      cmd: "cp index.html.update index.html"
+      chdir: /home/ec2-user/node_app/public
+
+  - name: Stop HR Portal
+    ansible.builtin.shell: /home/ec2-user/node_app/stop_node.sh 
+    args:
+      chdir: /home/ec2-user/node_app
+
+  - name: Start HR Portal 
+    ansible.builtin.shell: /home/ec2-user/node_app/node.sh
+    args:
+      chdir: /home/ec2-user/node_app
+      
