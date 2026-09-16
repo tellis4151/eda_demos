@@ -1,9 +1,9 @@
 ---
-- name: Check Status of Order Processing System
+- name: Check HR Portal System
   hosts: localhost
   gather_facts: false
 
   tasks:
-  - name: Poll order system
+  - name: Poll HR Platform
     ansible.builtin.uri:
-      url: http://44.203.157.242
+      url: http://98.94.54.21
