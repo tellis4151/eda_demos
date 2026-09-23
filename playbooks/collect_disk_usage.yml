@@ -12,7 +12,6 @@
       ansible.builtin.debug:
         msg: "{{ script_output.stdout | from_json }}"
 
-
     - name: Set disk data fact
       ansible.builtin.set_fact:
         disk_payload: "{{ script_output.stdout | from_json }}"
@@ -20,7 +19,7 @@
     - name: Create ServiceNow Incident
       servicenow.itsm.incident:
         state: new
-        caller: tory.ellis
+        caller: troy.ellis
         short_description: "Disk Usage Report: {{ disk_payload.hostname }}"
         description: |
           AUTOMATED DISK USAGE REPORT
