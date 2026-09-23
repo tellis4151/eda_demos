@@ -23,7 +23,8 @@ payload = {
     "impact": os.getenv("INCIDENT_IMPACT", "3"),
     "category": "Hardware",
     "caller_id": "Troy Ellis",
-    "state": "1"
+    "state": "1",
+    "incident_state": "1"
 }
 
 def create_incident():
