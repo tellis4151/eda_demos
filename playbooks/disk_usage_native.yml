@@ -13,7 +13,7 @@
 
   tasks:
     - name: Execute Python script to create incident
-      ansible.builtin.script: files/create_incident.py
+      ansible.builtin.script: files/create_snow.py
       args:
         executable: python3
       environment:
