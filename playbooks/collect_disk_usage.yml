@@ -19,7 +19,7 @@
     - name: Create ServiceNow Incident
       servicenow.itsm.incident:
         state: new
-        caller: tory.ellis
+        caller: troy.ellis
         short_description: "Disk Usage Report: {{ disk_payload.hostname }}"
         description: |
           AUTOMATED DISK USAGE REPORT
