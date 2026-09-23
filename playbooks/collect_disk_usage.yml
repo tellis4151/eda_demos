@@ -12,7 +12,6 @@
       ansible.builtin.debug:
         msg: "{{ script_output.stdout | from_json }}"
 
-
     - name: Set disk data fact
       ansible.builtin.set_fact:
         disk_payload: "{{ script_output.stdout | from_json }}"
