@@ -1,0 +1,13 @@
+---
+- name: Collect Disk Usage via Python Script
+  hosts: rhel_servers
+  gather_facts: false
+
+  tasks:
+    - name: Run local Python script on target remote nodes
+      ansible.builtin.script: get_disk_usage.py
+      register: script_output
+
+    - name: Parse and display structured JSON output
+      ansible.builtin.debug:
+        msg: "{{ script_output.stdout | from_json }}"
