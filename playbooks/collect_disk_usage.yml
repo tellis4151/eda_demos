@@ -5,7 +5,7 @@
 
   tasks:
     - name: Run local Python script on target remote nodes
-      ansible.builtin.script: get_disk_usage.py
+      ansible.builtin.script: files/get_disk_usage.py
       register: script_output
 
     - name: Parse and display structured JSON output
