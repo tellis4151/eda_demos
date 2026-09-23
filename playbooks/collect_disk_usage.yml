@@ -1,5 +1,5 @@
 ---
-- name: Collect Disk Usage via Python Script
+- name: Collect Disk Usage via Python Script and Open ServiceNow Incident
   hosts: rhel_servers
   gather_facts: false
 
@@ -11,3 +11,29 @@
     - name: Parse and display structured JSON output
       ansible.builtin.debug:
         msg: "{{ script_output.stdout | from_json }}"
+
+
+    - name: Set disk data fact
+      ansible.builtin.set_fact:
+        disk_payload: "{{ script_output.stdout | from_json }}"
+
+    - name: Create ServiceNow Incident
+      servicenow.itsm.incident:
+        state: new
+        caller: tory.ellis
+        short_description: "Disk Usage Report: {{ disk_payload.hostname }}"
+        description: |
+          AUTOMATED DISK USAGE REPORT
+          ===========================
+          Host: {{ disk_payload.hostname }}
+
+          Formatted Payload:
+          {{ disk_payload | to_nice_json }}
+        impact: low
+        urgency: low
+      delegate_to: localhost
+      register: servicenow_result
+
+    - name: Display created incident number
+      ansible.builtin.debug:
+        msg: "ServiceNow Incident Created: {{ servicenow_result.record.number }}"
