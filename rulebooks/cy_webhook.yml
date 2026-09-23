@@ -12,7 +12,7 @@
       condition: event.payload.disks is selectattr('use_percent', 'regex', '^(4[1-9]|[5-9][0-9]|100)%$') 
       action:
         run_job_template:
-          name: Hello World 
+          name: Get Disk Usage & Open ServicNow Incident
           organization: Default
           extra_vars:
             target_host: "{{ event.payload.hostname }}"
