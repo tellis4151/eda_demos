@@ -1,0 +1,19 @@
+---
+- name: Receive Message Events On Webhook - Simulating Cyware
+  hosts: all
+  sources:
+    - ansible.eda.webhook:
+        host: 0.0.0.0
+        port: 5050
+        ssl_verify: no
+
+  rules:
+    - name: Trigger action when any disk usage exceeds 40%
+      condition: event.payload.disks is selectattr('use_percent', 'regex', '^(4[1-9]|[5-9][0-9]|100)%$') 
+      action:
+        run_job_template:
+          name: Python - Native Disk Check & Create Snow Ticket
+          organization: Default
+          extra_vars:
+            target_host: "{{ event.payload.hostname }}"
+            disk_list: "{{ event.payload.disks }}"
