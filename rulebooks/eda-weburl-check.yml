@@ -7,12 +7,12 @@
         delay: 60
         verify_ssl: false
         urls:
-          - http://34.204.68.212
+          - http://54.88.87.212
   
   rules:
-    - name: Pizza Order Placed
-      condition: event.url_check.status == "up"
+    - name: HR Portal System is Down
+      condition: event.url_check.status == "down"
       action:
-        run_job_template:
-          name: Order Placed
+        run_workflow_template:
+          name: HR Portal Down
           organization: Default 
