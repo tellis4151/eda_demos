@@ -6,6 +6,11 @@
 
 A collection of practical demonstrations, decision rulebooks, and playbooks showcasing **Event-Driven Ansible (EDA)** in action. This repository illustrates how to automate responses to real-time events, IT service management (ITSM) alerts, webhooks, and system telemetry.
 
+***
+
+## Customization Options
+If you have specific rulebooks or event sources (such as **Dynatrace**, **Kafka**, **PagerDuty**, or **Alertmanager**) already set up in this repo, let me know and I can add specific commands and configuration snippets tailored to them!
+
 ---
 
 ## 🚀 Overview
@@ -35,7 +40,4 @@ This repository serves as a sandbox and reference guide for building, testing, a
 
 ---
 
-***
 
-## Customization Options
-If you have specific rulebooks or event sources (such as **Dynatrace**, **Kafka**, **PagerDuty**, or **Alertmanager**) already set up in this repo, let me know and I can add specific commands and configuration snippets tailored to them!
