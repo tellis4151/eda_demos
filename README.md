@@ -33,6 +33,8 @@ This repository serves as a sandbox and reference guide for building, testing, a
 ├── requirements.yml       # Ansible collections needed for EDA (ansible.eda)
 └── README.md              # Project documentation
 
+---
+
 ***
 
 ## Customization Options
