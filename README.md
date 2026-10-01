@@ -35,5 +35,5 @@ This repository serves as a sandbox and reference guide for building, testing, a
 
 ***
 
-### Customization Options
+## Customization Options
 If you have specific rulebooks or event sources (such as **Dynatrace**, **Kafka**, **PagerDuty**, or **Alertmanager**) already set up in this repo, let me know and I can add specific commands and configuration snippets tailored to them!
