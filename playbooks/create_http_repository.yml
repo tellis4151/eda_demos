@@ -27,13 +27,13 @@
         state: started
         enabled: true
 
-    - name: Allow HTTP traffic through firewalld
-      ansible.posix.firewalld:
-        service: http
-        permanent: true
-        state: enabled
-        immediate: true
-      ignore_errors: true
+#    - name: Allow HTTP traffic through firewalld
+#      ansible.posix.firewalld:
+#        service: http
+#        permanent: true
+#        state: enabled
+#        immediate: true
+#      ignore_errors: true
 
     - name: Create the repository directory structure inside web root
       ansible.builtin.file:
@@ -64,7 +64,7 @@
       ansible.builtin.yum_repository:
         name: "{{ repo_id }}"
         description: "{{ repo_description }}"
-        baseurl: "http://{{ ansible_default_ipv4.address }}/rpms-repo"
+        baseurl: "http://{{ ansible_facts['default_ipv4']['address'] }}/rpms-repo"
         enabled: true
         gpgcheck: false # Set to true if your listed RPMs are signed
         state: present
