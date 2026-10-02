@@ -1,0 +1,37 @@
+---
+- name: Configure Client Server to Use Custom DNF Repository
+  hosts: client_servers
+  become: true
+
+  vars:
+    # Set to your DNF repository server's IP address or hostname
+    repo_server_host: "{{ repo_server_host }}"
+    repo_id: "highside_repo"
+    repo_description: "Highside RPM Repository"
+    
+    # Packages available in the custom repository
+    packages_to_install:
+      - ansible-sign
+      - ansible-lint
+      - ansible-dev-tools
+
+  tasks:
+    - name: Add the web-accessible DNF repository configuration
+      ansible.builtin.yum_repository:
+        name: "{{ repo_id }}"
+        description: "{{ repo_description }}"
+        baseurl: "http://{{ repo_server_host }}/rpms-repo"
+        enabled: true
+        gpgcheck: false
+        state: present
+
+    - name: Clean and build DNF cache for the new repository
+      ansible.builtin.command:
+        cmd: "dnf makecache --enablerepo='{{ repo_id }}'"
+      changed_when: false
+
+    - name: Install packages from the new repository
+      ansible.builtin.dnf:
+        name: "{{ packages_to_install }}"
+        enablerepo: "{{ repo_id }}"
+        state: present

@@ -1,0 +1,75 @@
+---
+- name: Create and Configure Web-Accessible DNF Repository
+  hosts: data_repository
+  become: true
+
+  vars:
+    repo_directory: "/var/www/html/rpms-repo"
+    repo_id: "highside_repo"
+    repo_description: "Highside RPM Repository"
+    
+    rpm_packages_to_upload:
+      - "/opt/dev-rpms/ansible-sign-0.1.5-1.el9ap.noarch.rpm"
+      - "/opt/dev-rpms/ansible-lint-26.4.0-1.el9ap.noarch.rpm"
+      - "/opt/dev-rpms/ansible-dev-tools-26.4.6-1.el9ap.noarch.rpm"
+
+  tasks:
+    - name: Ensure required packages (createrepo_c and httpd) are installed
+      ansible.builtin.dnf:
+        name:
+          - createrepo_c
+          - httpd
+        state: present
+
+    - name: Ensure HTTP service is started and enabled
+      ansible.builtin.systemd:
+        name: httpd
+        state: started
+        enabled: true
+
+    - name: Allow HTTP traffic through firewalld
+      ansible.posix.firewalld:
+        service: http
+        permanent: true
+        state: enabled
+        immediate: true
+      ignore_errors: true
+
+    - name: Create the repository directory structure inside web root
+      ansible.builtin.file:
+        path: "{{ repo_directory }}"
+        state: directory
+        mode: '0755'
+        owner: root
+        group: root
+        setype: httpd_sys_content_t
+
+    - name: Copy listed RPMs from host to repository directory
+      ansible.builtin.copy:
+        src: "{{ item }}"
+        dest: "{{ repo_directory }}/"
+        mode: '0644'
+        remote_src: true
+        setype: httpd_sys_content_t
+      loop: "{{ rpm_packages_to_upload }}"
+      register: upload_result
+
+    - name: Initialize or update the repository metadata
+      ansible.builtin.command:
+        cmd: "createrepo_c {{ repo_directory }}"
+      when: upload_result.changed
+      changed_when: true
+
+    - name: Create the DNF .repo configuration file in /etc/yum.repos.d/
+      ansible.builtin.yum_repository:
+        name: "{{ repo_id }}"
+        description: "{{ repo_description }}"
+        baseurl: "http://{{ ansible_default_ipv4.address }}/rpms-repo"
+        enabled: true
+        gpgcheck: false # Set to true if your listed RPMs are signed
+        state: present
+
+    - name: Clear DNF cache to force initialization of the new repository
+      ansible.builtin.command:
+        cmd: dnf clean all
+      changed_when: true
