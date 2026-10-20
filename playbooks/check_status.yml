@@ -6,4 +6,4 @@
   tasks:
   - name: Poll HR Platform
     ansible.builtin.uri:
-      url: http://54.159.195.160
+      url: http://54.159.195.156
